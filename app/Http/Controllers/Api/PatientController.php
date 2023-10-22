@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PatientResource;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -10,10 +12,27 @@ class PatientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        return "HELLO WORLD";
+        // return PatientResource::collection(Patient::all());
+
+        $query = Patient::query();
+
+        if ($request->has('fullName')) {
+            $fullName = $request->fullName;
+            $names = explode(' ', $fullName);
+    
+            $query->where(function ($query) use ($names) {
+                foreach ($names as $name) {
+                    $query->orWhere('first_name', 'LIKE', '%' . $name . '%')
+                        ->orWhere('middle_name', 'LIKE', '%' . $name . '%')
+                        ->orWhere('last_name', 'LIKE', '%' . $name . '%');
+                }
+            });
+        }
+    
+        return PatientResource::collection($query->get());
     }
 
     /**
