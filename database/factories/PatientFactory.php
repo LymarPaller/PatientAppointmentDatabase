@@ -25,9 +25,7 @@ class PatientFactory extends Factory
 
         return [
             //
-            "first_name" => fake()->firstName(),
-            "middle_name" => fake()->lastName(),
-            "last_name" => fake()->lastName(),
+            "full_name" => fake()->name(),
             "date_of_birth" => fake()->dateTimeBetween("-80 years", "now"),
             "age" => fake()->numberBetween(1, 100),
             "blood_type" => $arrayBloodType[rand(0,5)],

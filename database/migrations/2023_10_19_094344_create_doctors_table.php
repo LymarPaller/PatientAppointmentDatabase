@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("username");
             $table->string("password")->unique();
-            $table->string("first_name");
-            $table->string("middle_name");
-            $table->string("last_name");
+            $table->string("full_name");
             $table->string("date_of_birth");
             $table->unsignedBigInteger("age");
             $table->unsignedBigInteger("mobile_number");

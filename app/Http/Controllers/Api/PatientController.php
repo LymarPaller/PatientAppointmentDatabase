@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PatientStoreRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Patient;
 use Illuminate\Http\Request;
@@ -17,21 +18,18 @@ class PatientController extends Controller
         //
         // return PatientResource::collection(Patient::all());
 
+
+        
         $query = Patient::query();
 
         if ($request->has('fullName')) {
-            $fullName = $request->fullName;
-            $names = explode(' ', $fullName);
-    
-            $query->where(function ($query) use ($names) {
-                foreach ($names as $name) {
-                    $query->orWhere('first_name', 'LIKE', '%' . $name . '%')
-                        ->orWhere('middle_name', 'LIKE', '%' . $name . '%')
-                        ->orWhere('last_name', 'LIKE', '%' . $name . '%');
-                }
-            });
+            $query->where('full_name', 'LIKE', '%' . $request->input('fullName') . '%');
         }
-    
+
+        if ($request->has('mobileNumber')) {
+            $query->where('mobile_number', 'LIKE', '%' . $request->input('mobileNumber') . '%');
+        }
+
         return PatientResource::collection($query->get());
     }
 
@@ -46,17 +44,32 @@ class PatientController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PatientStoreRequest $request)
     {
         //
+        return PatientResource::make(
+            Patient::create([
+                'full_name' => $request->fullName,
+                'date_of_appointment' => $request->dateOfAppointment,
+                'date_of_birth' => $request->dateOfBirth,
+                'mobile_number' => $request->mobileNumber,
+                'address' => $request->address,
+                'email' => $request->email,
+                'age' => $request->age,
+                'blood_type' => $request->bloodType,
+                'type' => $request->type,
+                'status' => $request->status,
+            ])
+            );
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Patient $patient)
     {
         //
+        return PatientResource::make(($patient));
     }
 
     /**

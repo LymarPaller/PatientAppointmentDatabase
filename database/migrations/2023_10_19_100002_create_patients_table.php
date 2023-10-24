@@ -13,21 +13,19 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->string("first_name");
-            $table->string("middle_name");
-            $table->string("last_name");
+            $table->string("full_name");
             $table->string("date_of_birth");
-            $table->unsignedBigInteger("age");
-            $table->enum("blood_type", ["A", "-A", "AB", "-AB", "O", "-O"]);
+            $table->unsignedBigInteger("age")->nullable();
+            $table->enum("blood_type", ["A", "-A", "AB", "-AB", "O", "-O"])->nullable();
             $table->unsignedBigInteger("mobile_number");
-            $table->string("address");
-            $table->string('email')->unique();
+            $table->string("address")->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string("date_of_appointment");
-            $table->enum("type", ["out patient", "in patient"]);
-            $table->enum("status", ["pending", "on going", "discharged"]);
-            $table->unsignedBigInteger("vitals_id");
-            $table->unsignedBigInteger("prescription_id");
-            $table->unsignedBigInteger("doctors_id");
+            $table->enum("type", ["out patient", "in patient"])->nullable();
+            $table->enum("status", ["pending", "on going", "discharged"])->nullable();
+            $table->unsignedBigInteger("vitals_id")->nullable();
+            $table->unsignedBigInteger("prescription_id")->nullable();
+            $table->unsignedBigInteger("doctors_id")->nullable();
             $table->timestamps();
 
             $table->foreign('vitals_id')->references('id')->on('vitals');

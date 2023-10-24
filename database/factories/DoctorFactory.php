@@ -20,9 +20,7 @@ class DoctorFactory extends Factory
             //
             "username" => fake()->userName(),
             "password" => fake()->password($minLength = 6, $maxLength = 12),
-            "first_name" => fake()->firstName(),
-            "middle_name" => fake()->lastName(),
-            "last_name" => fake()->lastName(),
+            "full_name" => fake()->name(),
             "date_of_birth" => fake()->dateTimeBetween("-80 years", "now"),
             "age" => fake()->numberBetween(1, 100),
             "mobile_number" => fake()->numberBetween(9150000000, 9280000000),
