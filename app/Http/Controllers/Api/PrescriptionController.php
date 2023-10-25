@@ -3,16 +3,26 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PrescriptionResource;
+use App\Models\Prescription;
 use Illuminate\Http\Request;
 
-class PrescriptionResource extends Controller
+class PrescriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $query = Prescription::query();
+
+        if ($request->has('doctorsId')) {
+            $query->where('doctirs_id', 'LIKE', '%' . $request->input('doctorsId') . '%' );
+        }
+
+        return PrescriptionResource::collection($query->get());
+        // return PrescriptionResource::collection(Prescription::all());
     }
 
     /**
@@ -42,9 +52,10 @@ class PrescriptionResource extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Prescription $prescription)
     {
         //
+        return PrescriptionResource::make($prescription);
     }
 
     /**

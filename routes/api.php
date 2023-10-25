@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\DoctorController;
 use App\Http\Controllers\Api\PatientController;
+use App\Http\Controllers\Api\PrescriptionController;
 use App\Http\Controllers\Api\VitalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,4 +26,5 @@ Route::group(['prefix' => 'v1'], function(){
     Route::apiResource('patient', PatientController::class);
     Route::apiResource('vitals', VitalController::class);
     Route::apiResource('doctors', DoctorController::class);
+    Route::apiResource('prescription', PrescriptionController::class);
 });
