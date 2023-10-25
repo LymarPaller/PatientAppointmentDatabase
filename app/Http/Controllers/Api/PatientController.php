@@ -18,8 +18,6 @@ class PatientController extends Controller
         //
         // return PatientResource::collection(Patient::all());
 
-
-        
         $query = Patient::query();
 
         if ($request->has('fullName')) {
@@ -60,7 +58,7 @@ class PatientController extends Controller
                 'type' => $request->type,
                 'status' => $request->status,
             ])
-            );
+        );
     }
 
     /**

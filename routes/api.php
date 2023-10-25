@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DoctorController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\VitalController;
 use Illuminate\Http\Request;
@@ -23,4 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function(){
     Route::apiResource('patient', PatientController::class);
     Route::apiResource('vitals', VitalController::class);
+    Route::apiResource('doctors', DoctorController::class);
 });

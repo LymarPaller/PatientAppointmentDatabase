@@ -3,25 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\VitalResource;
-use App\Models\Vital;
 use Illuminate\Http\Request;
 
-class VitalController extends Controller
+class PrescriptionResource extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         //
-        $query = Vital::query();
-
-        if ($request->has('doctorsId')) {
-            $query->where('doctors_id', $request->doctorsId);
-        }
-
-        return VitalResource::collection($query->get());
     }
 
     /**
@@ -43,10 +34,9 @@ class VitalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Vital $vital)
+    public function show(string $id)
     {
         //
-        return VitalResource::make(($vital));
     }
 
     /**
